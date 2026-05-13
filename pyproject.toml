@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sapai-open"
+version = "0.1.0"
+description = "Paper-faithful open implementation of the SAPAI pipeline (Jafari et al., medRxiv 2026)."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "streamlit>=1.50,<2",
+    "openai>=1.50,<3",
+    "anthropic>=0.40,<1.0",
+    "google-genai>=0.3,<2",
+    "PyPDF2==3.0.1",
+    "python-docx>=1.1,<2",
+]
+
+[project.urls]
+Paper = "https://doi.org/10.64898/2026.03.19.26348626"
+Source = "https://github.com/rct-sap-ai/sapai-open"
+"Validation prompts" = "https://github.com/rct-sap-ai/sapai-jama-sap-validation"
+"Main app" = "https://github.com/rct-sap-ai/sap-kcl"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sapai_open*"]

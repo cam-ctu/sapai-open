@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+.DS_Store
+*.docx
+!sapai_open/templates/*.docx
+.streamlit/secrets.toml
+.pytest_cache/
