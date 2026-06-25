@@ -35,7 +35,7 @@ MODEL_OPTIONS = {
         "claude-3-5-sonnet-20241022",
     ],
     "google": ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-1.5-pro"],
-    "ollama": ["gemma4"],
+    "ollama": ["gemma4", "gemma4:12b"],
 }
 
 PROVIDER_LABELS = {

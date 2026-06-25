@@ -20,7 +20,7 @@ PAPER_MODELS = {
     "openai": "gpt-5-2025-08-07",
     "anthropic": "claude-sonnet-4-20250514",
     "google": "gemini-2.5-pro",
-    "ollama": "gemma4",
+    "ollama": "gemma4:12b",
 }
 
 PAPER_TEMPERATURES = {
@@ -28,7 +28,7 @@ PAPER_TEMPERATURES = {
     "openai": None,
     "anthropic": 0.2,
     "google": 0.2,
-    "ollama": None,
+    "ollama": 1,
 }
 
 
