@@ -10,3 +10,4 @@ venv/
 !sapai_open/templates/*.docx
 .streamlit/secrets.toml
 .pytest_cache/
+*.pdf

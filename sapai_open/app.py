@@ -35,18 +35,21 @@ MODEL_OPTIONS = {
         "claude-3-5-sonnet-20241022",
     ],
     "google": ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-1.5-pro"],
+    "ollama": ["gemma4"],
 }
 
 PROVIDER_LABELS = {
     "openai": "OpenAI",
     "anthropic": "Anthropic",
     "google": "Google",
+    "ollama": "Ollama",
 }
 
 KEY_HINTS = {
     "openai": "starts with `sk-…`",
     "anthropic": "starts with `sk-ant-…`",
     "google": "long alphanumeric string from aistudio.google.com",
+    "ollama": "no api key needed - enter some text though",
 }
 
 

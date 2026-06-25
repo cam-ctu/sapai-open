@@ -20,6 +20,7 @@ PAPER_MODELS = {
     "openai": "gpt-5-2025-08-07",
     "anthropic": "claude-sonnet-4-20250514",
     "google": "gemini-2.5-pro",
+    "ollama": "gemma4",
 }
 
 PAPER_TEMPERATURES = {
@@ -27,6 +28,7 @@ PAPER_TEMPERATURES = {
     "openai": None,
     "anthropic": 0.2,
     "google": 0.2,
+    "ollama": None,
 }
 
 
@@ -50,6 +52,33 @@ class OpenAIChat:
 
         self.model = model
         self.client = OpenAI(api_key=api_key)
+
+    def get_response(self, prompt: str, system_message: str) -> str:
+        response = self.client.responses.create(
+            model=self.model,
+            instructions=system_message,
+            input=prompt,
+        )
+        return (response.output_text or "").strip()
+# ── Ollama ───────────────────────────────────────────────────────────────────
+
+
+class OllamaChat:
+    """Wrapper for OpenAI gpt-5 via the responses API (paper-faithful settings).
+
+    For non-gpt-5 OpenAI models the responses API still works; reasoning/
+    verbosity options are only used by reasoning-capable models and are
+    ignored elsewhere.
+    """
+
+    def __init__(self, model: str, api_key: str):
+        from openai import OpenAI
+
+        self.model = model
+        self.client = OpenAI(
+              base_url='http://localhost:11434/v1/',
+              api_key='ollama',  # required but ignored
+        )
 
     def get_response(self, prompt: str, system_message: str) -> str:
         response = self.client.responses.create(
@@ -124,7 +153,7 @@ class GoogleChat:
 
 @dataclass(frozen=True)
 class ProviderChoice:
-    provider: str  # "openai" | "anthropic" | "google"
+    provider: str  # "openai" | "ollama" | "anthropic" | "google"
     model: str
     api_key: str
 
@@ -132,6 +161,8 @@ class ProviderChoice:
 def get_chat(choice: ProviderChoice) -> ChatBackend:
     if choice.provider == "openai":
         return OpenAIChat(model=choice.model, api_key=choice.api_key)
+    if choice.provider == "ollama":
+        return OllamaChat(model=choice.model, api_key=choice.api_key)
     if choice.provider == "anthropic":
         return AnthropicChat(model=choice.model, api_key=choice.api_key)
     if choice.provider == "google":
