@@ -71,10 +71,16 @@ class OllamaChat:
     ignored elsewhere.
     """
 
-    def __init__(self, model: str, api_key: str):
+    def __init__(self, model: str, api_key: str,
+        temperature: float = PAPER_TEMPERATURES["ollama"],
+        max_output_tokens: int = 600,
+    ):
         from openai import OpenAI
 
         self.model = model
+        self.temperature = temperature
+        self.max_output_tokens = max_output_tokens
+        
         self.client = OpenAI(
               base_url='http://localhost:11434/v1/',
               api_key='ollama',  # required but ignored
@@ -85,6 +91,8 @@ class OllamaChat:
             model=self.model,
             instructions=system_message,
             input=prompt,
+            max_output_tokens = self.max_output_tokens,
+            temperature=self.temperature,
         )
         return (response.output_text or "").strip()
 
